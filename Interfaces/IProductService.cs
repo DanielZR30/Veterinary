@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Veterinary.Models;
+using Veterinary.ViewModels;
 
 namespace Veterinary.Interfaces
 {
@@ -16,6 +17,10 @@ namespace Veterinary.Interfaces
         Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId);
 
         Task<IEnumerable<Product>> GetProducts();
-        
+
+        Task<Product> UpdateProduct(Product product);
+
+        Task<Product> DeleteProduct(Product product);
+
     }
 }

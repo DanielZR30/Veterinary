@@ -9,6 +9,7 @@
 
 namespace Veterinary.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -19,7 +20,7 @@ namespace Veterinary.Models
         public string ProductDescription { get; set; }
         public Nullable<decimal> ProductPrice { get; set; }
         public Nullable<System.Guid> IDCategoria { get; set; }
-    
+        [JsonIgnore]
         public virtual Category Category { get; set; }
     }
 }

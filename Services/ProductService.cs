@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Veterinary.Interfaces;
 using Veterinary.Models;
+using Veterinary.ViewModels;
 
 namespace Veterinary.Services
 {
@@ -31,7 +32,8 @@ namespace Veterinary.Services
 
         public async Task<IEnumerable<Product>> GetProductByCategory(Guid categoryId)
         {
-            return await _context.Product.Where(p => p.IDCategoria.Equals(categoryId)).ToListAsync();
+            IEnumerable<Product> products = await _context.Product.Where(p => p.IDCategoria == categoryId).ToListAsync();
+            return products;
         }
 
         public async Task<Product> GetProductById(Guid productId)
@@ -42,6 +44,41 @@ namespace Veterinary.Services
         public async Task<IEnumerable<Product>> GetProducts()
         {
             return await _context.Product.ToListAsync();
+        }
+
+        public async Task<Product> UpdateProduct(Product product)
+        {
+            Product p = _context.Product.FirstOrDefault(pr => pr.IDProduct == product.IDProduct);
+            try
+            {
+                p.ProductName = product.ProductName;
+                p.ProductPrice = product.ProductPrice;
+                p.ProductDescription = product.ProductDescription;
+                p.IDCategoria= product.IDCategoria;
+                await _context.SaveChangesAsync();
+                return p;
+            }catch(Exception ex)
+            {
+                return p;
+            }
+        }
+
+        public async Task<Product> DeleteProduct(Product product)
+        {
+            Product p = _context.Product.FirstOrDefault(pr => pr.IDProduct == product.IDProduct);
+            try
+            {
+                if (p != null)
+                {
+                    _context.Product.Remove(p);
+                    await _context.SaveChangesAsync();
+                }
+                return p;
+            }
+            catch (Exception ex)
+            {
+                return p;
+            }
         }
     }
 }

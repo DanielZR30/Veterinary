@@ -12,9 +12,12 @@ using Veterinary.Interfaces;
 using Veterinary.ViewModels;
 using Veterinary.Services;
 using Newtonsoft.Json;
+using System.Web.Http.Cors;
 
 namespace Veterinary.Controllers
 {
+
+    [EnableCors(origins: "http://localhost:50804", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
         private static readonly VeterinaryEntities _context = new VeterinaryEntities();
@@ -35,7 +38,7 @@ namespace Veterinary.Controllers
         #region Create
         [HttpPost]
         [Route("api/products/create")]
-        [JsonIgnore]
+       
         public async Task<object> CreateProduct([FromBody] ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
@@ -88,7 +91,101 @@ namespace Veterinary.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("api/products/category/{IDCategory}")]
+        public async Task<object> GetProductsByCategory(Guid IDCategory)
+        {
+            try
+            {
+                IEnumerable<Product> products = await _productService.GetProductByCategory(IDCategory);
+                return Ok(products);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("api/products/{IDProduct}")]
+        public async Task<object> GetProductsById(Guid IDProduct)
+        {
+            try
+            {
+                Product product = await _productService.GetProductById(IDProduct);
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         #endregion
 
+        #region Update
+
+        [HttpPut]
+        [Route("api/products/{IDProduct}")]
+        public async Task<object> UpdateProduct(Guid IDProduct, [FromBody] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Product p = await _productService.UpdateProduct(product);
+                    return Ok<Product>(product);
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError("Duplicated", "Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError("Error", exception.Message);
+                }
+            }
+            return BadRequest(ModelState.ToString());
+        }
+        #endregion
+
+        #region Delete
+
+        [HttpDelete]
+        [Route("api/products/{IDProduct}")]
+        public async Task<object> DeleteProduct(Guid IDProduct, [FromBody] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Product p = await _productService.DeleteProduct(product);
+                    return Ok<Product>(product);
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        ModelState.AddModelError("Duplicated", "Ya existe una categoría con el mismo nombre.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError("Error", exception.Message);
+                }
+            }
+            return BadRequest(ModelState.ToString());
+        }
+        #endregion
     }
 }
