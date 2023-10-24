@@ -22,10 +22,10 @@ namespace Veterinary.Models
             this.PetVaccine = new HashSet<PetVaccine>();
         }
     
-        public string IDPet { get; set; }
+        public System.Guid IDPet { get; set; }
         public string PetName { get; set; }
-        public string IDSpecies { get; set; }
-        public string IDCustomer { get; set; }
+        public Nullable<System.Guid> IDSpecies { get; set; }
+        public Nullable<System.Guid> IDCustomer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AestheticService> AestheticService { get; set; }

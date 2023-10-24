@@ -20,7 +20,7 @@ namespace Veterinary.Models
             this.Pet = new HashSet<Pet>();
         }
     
-        public string IDSpecies { get; set; }
+        public System.Guid IDSpecies { get; set; }
         public string SpeciesName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,11 +14,11 @@ namespace Veterinary.Models
     
     public partial class Product
     {
-        public string IDProduct { get; set; }
+        public System.Guid IDProduct { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public Nullable<decimal> ProductPrice { get; set; }
-        public string IDCategoria { get; set; }
+        public Nullable<System.Guid> IDCategoria { get; set; }
     
         public virtual Category Category { get; set; }
     }

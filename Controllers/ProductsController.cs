@@ -8,30 +8,35 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Veterinary.Models;
-using Veterinary.Services;
+using Veterinary.Interfaces;
 using Veterinary.ViewModels;
+using Veterinary.Services;
+using Newtonsoft.Json;
 
 namespace Veterinary.Controllers
 {
-    [Route("api/[controller]")]
     public class ProductsController : ApiController
     {
-        private readonly VeterinaryEntities _context;
-        private readonly IProductService _productService;
-        private readonly ICategoryService _categoryService;
+        private static readonly VeterinaryEntities _context = new VeterinaryEntities();
+        private readonly IProductService _productService = new ProductService(_context);
+        private readonly ICategoryService _categoryService = new CategoryService(_context);
 
-        public ProductsController(VeterinaryEntities context, ProductService productService, CategoryService categoryService)
+
+        /*
+        //preguntar como hacer la inyeccion de dependencias
+        public ProductsController(VeterinaryEntities context,
+                                  IProductService productService,
+                                  ICategoryService categoryService)
         {
-            _context = context;
             _productService = productService;
             _categoryService = categoryService;
         }
-
+        */
         #region Create
         [HttpPost]
-        [Route("create")]
-        // TODO: Autorizar roles
-        public async Task<IActionResult> CreateCategory([FromBody] ProductViewModel productViewModel)
+        [Route("api/products/create")]
+        [JsonIgnore]
+        public async Task<object> CreateProduct([FromBody] ProductViewModel productViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -42,11 +47,12 @@ namespace Veterinary.Controllers
                         ProductName = productViewModel.ProductName,
                         ProductDescription = productViewModel.ProductDescription,
                         ProductPrice = productViewModel.ProductPrice,
-                        IDProduct = Guid.NewGuid().ToString(),
-                        IDCategoria = productViewModel.IDCategoria.ToString(),
+                        IDProduct = Guid.NewGuid(),
+                        IDCategoria = productViewModel.IDCategoria,
                         Category = await _categoryService.GetCategoryById(productViewModel.IDCategoria)
                     };
-                    return (IActionResult)Ok();
+                    await _productService.CreateProduct(product);
+                    return Ok<Product>(product);
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -64,7 +70,23 @@ namespace Veterinary.Controllers
                     ModelState.AddModelError("Error", exception.Message);
                 }
             }
-            return (IActionResult)BadRequest(ModelState.ToString());
+            return BadRequest(ModelState.ToString());
+        }
+        #endregion
+
+        #region Read
+        [HttpGet]
+        [Route("api/products")]
+        public async Task<object> GetProducts()
+        {
+            try
+            {
+                IEnumerable<Product> products = await _productService.GetProducts();
+                return Ok(products);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         #endregion
 

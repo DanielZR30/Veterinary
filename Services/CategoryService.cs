@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Veterinary.Interfaces;
 using Veterinary.Models;
 
 namespace Veterinary.Services
@@ -12,6 +13,11 @@ namespace Veterinary.Services
     {
 
         private readonly VeterinaryEntities _context;
+
+        public CategoryService(VeterinaryEntities context)
+        {
+            _context = context;
+        }
         public async Task<Category> CreateCategory(Category category)
         {
             Category c = await _context.Category.FirstOrDefaultAsync(cat => cat.CategoryDescription.Equals(category.CategoryDescription));

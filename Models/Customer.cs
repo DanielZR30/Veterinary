@@ -21,7 +21,7 @@ namespace Veterinary.Models
             this.Pet = new HashSet<Pet>();
         }
     
-        public string IDCustomer { get; set; }
+        public System.Guid IDCustomer { get; set; }
         public string CustomerName { get; set; }
         public string CustomerLastname { get; set; }
         public string CustomerPhone { get; set; }

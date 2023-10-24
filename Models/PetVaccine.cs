@@ -14,8 +14,8 @@ namespace Veterinary.Models
     
     public partial class PetVaccine
     {
-        public string IDPet { get; set; }
-        public string IDVaccine { get; set; }
+        public System.Guid IDPet { get; set; }
+        public System.Guid IDVaccine { get; set; }
         public Nullable<System.DateTime> VaccinationDate { get; set; }
     
         public virtual Pet Pet { get; set; }

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Veterinary.Interfaces;
 using Veterinary.Models;
 
 namespace Veterinary.Services
@@ -11,12 +12,18 @@ namespace Veterinary.Services
     public class ProductService : IProductService
     {
         private readonly VeterinaryEntities _context;
+
+        public ProductService(VeterinaryEntities context)
+        {
+            _context = context;
+        }
         public async Task<Product> CreateProduct(Product product)
         {
             Product p = await _context.Product.FirstOrDefaultAsync(pr => pr.ProductName == product.ProductName);
             if(p == null)
             {
-                return _context.Product.Add(product);
+                p = _context.Product.Add(product);   
+                await _context.SaveChangesAsync();
             }
 
             return p;

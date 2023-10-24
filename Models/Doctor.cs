@@ -24,8 +24,8 @@ namespace Veterinary.Models
             this.SurgeryService = new HashSet<SurgeryService>();
         }
     
-        public string IDDoctor { get; set; }
-        public string DoctorCC { get; set; }
+        public System.Guid IDDoctor { get; set; }
+        public Nullable<System.Guid> DoctorCC { get; set; }
         public string DoctorName { get; set; }
         public string DoctorLastname { get; set; }
         public string ProfessionalCard { get; set; }

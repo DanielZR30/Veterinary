@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using Veterinary.Interfaces;
+using Veterinary.Services;
 
 namespace Veterinary
 {
@@ -10,6 +15,7 @@ namespace Veterinary
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de Web API
+
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();

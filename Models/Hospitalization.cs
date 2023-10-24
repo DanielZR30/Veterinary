@@ -14,12 +14,12 @@ namespace Veterinary.Models
     
     public partial class Hospitalization
     {
-        public string IDHospitalization { get; set; }
+        public System.Guid IDHospitalization { get; set; }
         public Nullable<System.DateTime> InitialDate { get; set; }
         public Nullable<System.DateTime> FinalDate { get; set; }
         public string HospitalizationDescription { get; set; }
-        public string IDPetRecord { get; set; }
-        public string IDDoctor { get; set; }
+        public Nullable<System.Guid> IDPetRecord { get; set; }
+        public Nullable<System.Guid> IDDoctor { get; set; }
     
         public virtual Doctor Doctor { get; set; }
         public virtual PetRecord PetRecord { get; set; }

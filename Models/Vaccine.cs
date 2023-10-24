@@ -20,7 +20,7 @@ namespace Veterinary.Models
             this.PetVaccine = new HashSet<PetVaccine>();
         }
     
-        public string IDVaccine { get; set; }
+        public System.Guid IDVaccine { get; set; }
         public string VaccineName { get; set; }
         public string VaccineDescription { get; set; }
     

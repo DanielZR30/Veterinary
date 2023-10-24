@@ -14,11 +14,11 @@ namespace Veterinary.Models
     
     public partial class Invoice
     {
-        public string IDInvoice { get; set; }
+        public System.Guid IDInvoice { get; set; }
         public Nullable<decimal> InvoiceTotal { get; set; }
         public Nullable<System.DateTime> InvoiceDate { get; set; }
         public string InvoiceDescription { get; set; }
-        public string IDCustomer { get; set; }
+        public Nullable<System.Guid> IDCustomer { get; set; }
     
         public virtual Customer Customer { get; set; }
     }

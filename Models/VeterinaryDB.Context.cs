@@ -40,7 +40,6 @@ namespace Veterinary.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Species> Species { get; set; }
         public virtual DbSet<SurgeryService> SurgeryService { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Vaccine> Vaccine { get; set; }
     }
 }

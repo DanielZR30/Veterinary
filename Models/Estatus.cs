@@ -23,7 +23,7 @@ namespace Veterinary.Models
             this.SurgeryService = new HashSet<SurgeryService>();
         }
     
-        public string IDEstatus { get; set; }
+        public System.Guid IDEstatus { get; set; }
         public string TypeStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

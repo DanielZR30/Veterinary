@@ -23,8 +23,8 @@ namespace Veterinary.Models
             this.SurgeryService = new HashSet<SurgeryService>();
         }
     
-        public string IDPetRecord { get; set; }
-        public string IDPet { get; set; }
+        public System.Guid IDPetRecord { get; set; }
+        public Nullable<System.Guid> IDPet { get; set; }
         public Nullable<decimal> PetWeight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
