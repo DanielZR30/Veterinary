@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="VeterinaryModelStoreContainer" CdmEntityContainer="VeterinaryEntities">
+    <EntitySetMapping Name="AestheticService">
+      <EntityTypeMapping TypeName="VeterinaryModel.AestheticService">
+        <MappingFragment StoreEntitySet="AestheticService">
+          <ScalarProperty Name="IDAestheticService" ColumnName="IDAestheticService" />
+          <ScalarProperty Name="AestheticServiceDate" ColumnName="AestheticServiceDate" />
+          <ScalarProperty Name="AestheticrviceDescription" ColumnName="AestheticrviceDescription" />
+          <ScalarProperty Name="AestheticServicEstatus" ColumnName="AestheticServicEstatus" />
+          <ScalarProperty Name="IDPet" ColumnName="IDPet" />
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category">
+      <EntityTypeMapping TypeName="VeterinaryModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+          <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="VeterinaryModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerLastname" ColumnName="CustomerLastname" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor">
+      <EntityTypeMapping TypeName="VeterinaryModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+          <ScalarProperty Name="DoctorCC" ColumnName="DoctorCC" />
+          <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+          <ScalarProperty Name="DoctorLastname" ColumnName="DoctorLastname" />
+          <ScalarProperty Name="ProfessionalCard" ColumnName="ProfessionalCard" />
+          <ScalarProperty Name="DoctorPhone" ColumnName="DoctorPhone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estatus">
+      <EntityTypeMapping TypeName="VeterinaryModel.Estatus">
+        <MappingFragment StoreEntitySet="Estatus">
+          <ScalarProperty Name="IDEstatus" ColumnName="IDEstatus" />
+          <ScalarProperty Name="TypeStatus" ColumnName="TypeStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hospitalization">
+      <EntityTypeMapping TypeName="VeterinaryModel.Hospitalization">
+        <MappingFragment StoreEntitySet="Hospitalization">
+          <ScalarProperty Name="IDHospitalization" ColumnName="IDHospitalization" />
+          <ScalarProperty Name="InitialDate" ColumnName="InitialDate" />
+          <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
+          <ScalarProperty Name="HospitalizationDescription" ColumnName="HospitalizationDescription" />
+          <ScalarProperty Name="IDPetRecord" ColumnName="IDPetRecord" />
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoice">
+      <EntityTypeMapping TypeName="VeterinaryModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="IDInvoice" ColumnName="IDInvoice" />
+          <ScalarProperty Name="InvoiceTotal" ColumnName="InvoiceTotal" />
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+          <ScalarProperty Name="InvoiceDescription" ColumnName="InvoiceDescription" />
+          <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MedicalExamination">
+      <EntityTypeMapping TypeName="VeterinaryModel.MedicalExamination">
+        <MappingFragment StoreEntitySet="MedicalExamination">
+          <ScalarProperty Name="IDMedicalExamination" ColumnName="IDMedicalExamination" />
+          <ScalarProperty Name="MedicalExaminationDate" ColumnName="MedicalExaminationDate" />
+          <ScalarProperty Name="MedicalExaminationEstatus" ColumnName="MedicalExaminationEstatus" />
+          <ScalarProperty Name="MedicalExaminationDescription" ColumnName="MedicalExaminationDescription" />
+          <ScalarProperty Name="IDPetRecord" ColumnName="IDPetRecord" />
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MedicalService">
+      <EntityTypeMapping TypeName="VeterinaryModel.MedicalService">
+        <MappingFragment StoreEntitySet="MedicalService">
+          <ScalarProperty Name="IDMedicalService" ColumnName="IDMedicalService" />
+          <ScalarProperty Name="MedicalServiceDate" ColumnName="MedicalServiceDate" />
+          <ScalarProperty Name="MedicalServiceDescription" ColumnName="MedicalServiceDescription" />
+          <ScalarProperty Name="MedicalServicEstatus" ColumnName="MedicalServicEstatus" />
+          <ScalarProperty Name="IDPetRecord" ColumnName="IDPetRecord" />
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pet">
+      <EntityTypeMapping TypeName="VeterinaryModel.Pet">
+        <MappingFragment StoreEntitySet="Pet">
+          <ScalarProperty Name="IDPet" ColumnName="IDPet" />
+          <ScalarProperty Name="PetName" ColumnName="PetName" />
+          <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+          <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+          <ScalarProperty Name="PetWeight" ColumnName="PetWeight" />
+          <ScalarProperty Name="PetAge" ColumnName="PetAge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PetRecord">
+      <EntityTypeMapping TypeName="VeterinaryModel.PetRecord">
+        <MappingFragment StoreEntitySet="PetRecord">
+          <ScalarProperty Name="IDPetRecord" ColumnName="IDPetRecord" />
+          <ScalarProperty Name="IDPet" ColumnName="IDPet" />
+          <ScalarProperty Name="PetWeight" ColumnName="PetWeight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PetVaccine">
+      <EntityTypeMapping TypeName="VeterinaryModel.PetVaccine">
+        <MappingFragment StoreEntitySet="PetVaccine">
+          <ScalarProperty Name="IDPet" ColumnName="IDPet" />
+          <ScalarProperty Name="IDVaccine" ColumnName="IDVaccine" />
+          <ScalarProperty Name="VaccinationDate" ColumnName="VaccinationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="VeterinaryModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="IDProduct" ColumnName="IDProduct" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="IDCategoria" ColumnName="IDCategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Species">
+      <EntityTypeMapping TypeName="VeterinaryModel.Species">
+        <MappingFragment StoreEntitySet="Species">
+          <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+          <ScalarProperty Name="SpeciesName" ColumnName="SpeciesName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SurgeryService">
+      <EntityTypeMapping TypeName="VeterinaryModel.SurgeryService">
+        <MappingFragment StoreEntitySet="SurgeryService">
+          <ScalarProperty Name="IDMedicalService" ColumnName="IDMedicalService" />
+          <ScalarProperty Name="MedicalServiceDate" ColumnName="MedicalServiceDate" />
+          <ScalarProperty Name="MedicalServiceDescription" ColumnName="MedicalServiceDescription" />
+          <ScalarProperty Name="MedicalServicEstatus" ColumnName="MedicalServicEstatus" />
+          <ScalarProperty Name="IDPetRecord" ColumnName="IDPetRecord" />
+          <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vaccine">
+      <EntityTypeMapping TypeName="VeterinaryModel.Vaccine">
+        <MappingFragment StoreEntitySet="Vaccine">
+          <ScalarProperty Name="IDVaccine" ColumnName="IDVaccine" />
+          <ScalarProperty Name="VaccineName" ColumnName="VaccineName" />
+          <ScalarProperty Name="VaccineDescription" ColumnName="VaccineDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

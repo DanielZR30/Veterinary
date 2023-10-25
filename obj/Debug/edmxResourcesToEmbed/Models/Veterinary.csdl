@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VeterinaryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AestheticService">
+    <Key>
+      <PropertyRef Name="IDAestheticService" />
+    </Key>
+    <Property Name="IDAestheticService" Type="Guid" Nullable="false" />
+    <Property Name="AestheticServiceDate" Type="DateTime" Precision="3" />
+    <Property Name="AestheticrviceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AestheticServicEstatus" Type="Guid" />
+    <Property Name="IDPet" Type="Guid" />
+    <Property Name="IDDoctor" Type="Guid" />
+    <NavigationProperty Name="Estatus" Relationship="Self.FK__Aesthetic__Aesth__5DCAEF64" FromRole="AestheticService" ToRole="Estatus" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__Aesthetic__IDDoc__5FB337D6" FromRole="AestheticService" ToRole="Doctor" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK__Aesthetic__IDPet__5EBF139D" FromRole="AestheticService" ToRole="Pet" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="IDCategory" />
+    </Key>
+    <Property Name="IDCategory" Type="Guid" Nullable="false" />
+    <Property Name="CategoryDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Product__IDCateg__6754599E" FromRole="Category" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="IDCustomer" />
+    </Key>
+    <Property Name="IDCustomer" Type="Guid" Nullable="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerLastname" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Invoice" Relationship="Self.FK__Invoice__IDCusto__628FA481" FromRole="Customer" ToRole="Invoice" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK__Pet__IDCustomer__403A8C7D" FromRole="Customer" ToRole="Pet" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IDDoctor" />
+    </Key>
+    <Property Name="IDDoctor" Type="Guid" Nullable="false" />
+    <Property Name="DoctorCC" Type="Guid" />
+    <Property Name="DoctorName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="DoctorLastname" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="ProfessionalCard" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="DoctorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AestheticService" Relationship="Self.FK__Aesthetic__IDDoc__5FB337D6" FromRole="Doctor" ToRole="AestheticService" />
+    <NavigationProperty Name="Hospitalization" Relationship="Self.FK__Hospitali__IDDoc__4AB81AF0" FromRole="Doctor" ToRole="Hospitalization" />
+    <NavigationProperty Name="MedicalExamination" Relationship="Self.FK__MedicalEx__IDDoc__5165187F" FromRole="Doctor" ToRole="MedicalExamination" />
+    <NavigationProperty Name="MedicalService" Relationship="Self.FK__MedicalSe__IDDoc__5629CD9C" FromRole="Doctor" ToRole="MedicalService" />
+    <NavigationProperty Name="SurgeryService" Relationship="Self.FK__SurgerySe__IDDoc__5AEE82B9" FromRole="Doctor" ToRole="SurgeryService" />
+  </EntityType>
+  <EntityType Name="Estatus">
+    <Key>
+      <PropertyRef Name="IDEstatus" />
+    </Key>
+    <Property Name="IDEstatus" Type="Guid" Nullable="false" />
+    <Property Name="TypeStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AestheticService" Relationship="Self.FK__Aesthetic__Aesth__5DCAEF64" FromRole="Estatus" ToRole="AestheticService" />
+    <NavigationProperty Name="MedicalExamination" Relationship="Self.FK__MedicalEx__Medic__4F7CD00D" FromRole="Estatus" ToRole="MedicalExamination" />
+    <NavigationProperty Name="MedicalService" Relationship="Self.FK__MedicalSe__Medic__5441852A" FromRole="Estatus" ToRole="MedicalService" />
+    <NavigationProperty Name="SurgeryService" Relationship="Self.FK__SurgerySe__Medic__59063A47" FromRole="Estatus" ToRole="SurgeryService" />
+  </EntityType>
+  <EntityType Name="Hospitalization">
+    <Key>
+      <PropertyRef Name="IDHospitalization" />
+    </Key>
+    <Property Name="IDHospitalization" Type="Guid" Nullable="false" />
+    <Property Name="InitialDate" Type="DateTime" Precision="0" />
+    <Property Name="FinalDate" Type="DateTime" Precision="0" />
+    <Property Name="HospitalizationDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IDPetRecord" Type="Guid" />
+    <Property Name="IDDoctor" Type="Guid" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__Hospitali__IDDoc__4AB81AF0" FromRole="Hospitalization" ToRole="Doctor" />
+    <NavigationProperty Name="PetRecord" Relationship="Self.FK__Hospitali__IDPet__49C3F6B7" FromRole="Hospitalization" ToRole="PetRecord" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="IDInvoice" />
+    </Key>
+    <Property Name="IDInvoice" Type="Guid" Nullable="false" />
+    <Property Name="InvoiceTotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+    <Property Name="InvoiceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IDCustomer" Type="Guid" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Invoice__IDCusto__628FA481" FromRole="Invoice" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="MedicalExamination">
+    <Key>
+      <PropertyRef Name="IDMedicalExamination" />
+    </Key>
+    <Property Name="IDMedicalExamination" Type="Guid" Nullable="false" />
+    <Property Name="MedicalExaminationDate" Type="DateTime" Precision="3" />
+    <Property Name="MedicalExaminationEstatus" Type="Guid" />
+    <Property Name="MedicalExaminationDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IDPetRecord" Type="Guid" />
+    <Property Name="IDDoctor" Type="Guid" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__MedicalEx__IDDoc__5165187F" FromRole="MedicalExamination" ToRole="Doctor" />
+    <NavigationProperty Name="Estatus" Relationship="Self.FK__MedicalEx__Medic__4F7CD00D" FromRole="MedicalExamination" ToRole="Estatus" />
+    <NavigationProperty Name="PetRecord" Relationship="Self.FK__MedicalEx__IDPet__5070F446" FromRole="MedicalExamination" ToRole="PetRecord" />
+  </EntityType>
+  <EntityType Name="MedicalService">
+    <Key>
+      <PropertyRef Name="IDMedicalService" />
+    </Key>
+    <Property Name="IDMedicalService" Type="Guid" Nullable="false" />
+    <Property Name="MedicalServiceDate" Type="DateTime" Precision="3" />
+    <Property Name="MedicalServiceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MedicalServicEstatus" Type="Guid" />
+    <Property Name="IDPetRecord" Type="Guid" />
+    <Property Name="IDDoctor" Type="Guid" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__MedicalSe__IDDoc__5629CD9C" FromRole="MedicalService" ToRole="Doctor" />
+    <NavigationProperty Name="Estatus" Relationship="Self.FK__MedicalSe__Medic__5441852A" FromRole="MedicalService" ToRole="Estatus" />
+    <NavigationProperty Name="PetRecord" Relationship="Self.FK__MedicalSe__IDPet__5535A963" FromRole="MedicalService" ToRole="PetRecord" />
+  </EntityType>
+  <EntityType Name="Pet">
+    <Key>
+      <PropertyRef Name="IDPet" />
+    </Key>
+    <Property Name="IDPet" Type="Guid" Nullable="false" />
+    <Property Name="PetName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="IDSpecies" Type="Guid" />
+    <Property Name="IDCustomer" Type="Guid" />
+    <Property Name="PetWeight" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="PetAge" Type="Byte" />
+    <NavigationProperty Name="AestheticService" Relationship="Self.FK__Aesthetic__IDPet__5EBF139D" FromRole="Pet" ToRole="AestheticService" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Pet__IDCustomer__403A8C7D" FromRole="Pet" ToRole="Customer" />
+    <NavigationProperty Name="Species" Relationship="Self.FK__Pet__IDSpecies__3F466844" FromRole="Pet" ToRole="Species" />
+    <NavigationProperty Name="PetRecord" Relationship="Self.FK__PetRecord__IDPet__46E78A0C" FromRole="Pet" ToRole="PetRecord" />
+    <NavigationProperty Name="PetVaccine" Relationship="Self.FK__PetVaccin__IDPet__4316F928" FromRole="Pet" ToRole="PetVaccine" />
+  </EntityType>
+  <EntityType Name="PetRecord">
+    <Key>
+      <PropertyRef Name="IDPetRecord" />
+    </Key>
+    <Property Name="IDPetRecord" Type="Guid" Nullable="false" />
+    <Property Name="IDPet" Type="Guid" />
+    <Property Name="PetWeight" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Hospitalization" Relationship="Self.FK__Hospitali__IDPet__49C3F6B7" FromRole="PetRecord" ToRole="Hospitalization" />
+    <NavigationProperty Name="MedicalExamination" Relationship="Self.FK__MedicalEx__IDPet__5070F446" FromRole="PetRecord" ToRole="MedicalExamination" />
+    <NavigationProperty Name="MedicalService" Relationship="Self.FK__MedicalSe__IDPet__5535A963" FromRole="PetRecord" ToRole="MedicalService" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK__PetRecord__IDPet__46E78A0C" FromRole="PetRecord" ToRole="Pet" />
+    <NavigationProperty Name="SurgeryService" Relationship="Self.FK__SurgerySe__IDPet__59FA5E80" FromRole="PetRecord" ToRole="SurgeryService" />
+  </EntityType>
+  <EntityType Name="PetVaccine">
+    <Key>
+      <PropertyRef Name="IDPet" />
+      <PropertyRef Name="IDVaccine" />
+    </Key>
+    <Property Name="IDPet" Type="Guid" Nullable="false" />
+    <Property Name="IDVaccine" Type="Guid" Nullable="false" />
+    <Property Name="VaccinationDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK__PetVaccin__IDPet__4316F928" FromRole="PetVaccine" ToRole="Pet" />
+    <NavigationProperty Name="Vaccine" Relationship="Self.FK__PetVaccin__IDVac__440B1D61" FromRole="PetVaccine" ToRole="Vaccine" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="IDProduct" />
+    </Key>
+    <Property Name="IDProduct" Type="Guid" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="IDCategoria" Type="Guid" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Product__IDCateg__6754599E" FromRole="Product" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Species">
+    <Key>
+      <PropertyRef Name="IDSpecies" />
+    </Key>
+    <Property Name="IDSpecies" Type="Guid" Nullable="false" />
+    <Property Name="SpeciesName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Pet" Relationship="Self.FK__Pet__IDSpecies__3F466844" FromRole="Species" ToRole="Pet" />
+  </EntityType>
+  <EntityType Name="SurgeryService">
+    <Key>
+      <PropertyRef Name="IDMedicalService" />
+    </Key>
+    <Property Name="IDMedicalService" Type="Guid" Nullable="false" />
+    <Property Name="MedicalServiceDate" Type="DateTime" Precision="3" />
+    <Property Name="MedicalServiceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MedicalServicEstatus" Type="Guid" />
+    <Property Name="IDPetRecord" Type="Guid" />
+    <Property Name="IDDoctor" Type="Guid" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK__SurgerySe__IDDoc__5AEE82B9" FromRole="SurgeryService" ToRole="Doctor" />
+    <NavigationProperty Name="Estatus" Relationship="Self.FK__SurgerySe__Medic__59063A47" FromRole="SurgeryService" ToRole="Estatus" />
+    <NavigationProperty Name="PetRecord" Relationship="Self.FK__SurgerySe__IDPet__59FA5E80" FromRole="SurgeryService" ToRole="PetRecord" />
+  </EntityType>
+  <EntityType Name="Vaccine">
+    <Key>
+      <PropertyRef Name="IDVaccine" />
+    </Key>
+    <Property Name="IDVaccine" Type="Guid" Nullable="false" />
+    <Property Name="VaccineName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="VaccineDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PetVaccine" Relationship="Self.FK__PetVaccin__IDVac__440B1D61" FromRole="Vaccine" ToRole="PetVaccine" />
+  </EntityType>
+  <Association Name="FK__Aesthetic__Aesth__5DCAEF64">
+    <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+    <End Role="AestheticService" Type="Self.AestheticService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estatus">
+        <PropertyRef Name="IDEstatus" />
+      </Principal>
+      <Dependent Role="AestheticService">
+        <PropertyRef Name="AestheticServicEstatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Aesthetic__IDDoc__5FB337D6">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="AestheticService" Type="Self.AestheticService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="AestheticService">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Aesthetic__IDPet__5EBF139D">
+    <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+    <End Role="AestheticService" Type="Self.AestheticService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="IDPet" />
+      </Principal>
+      <Dependent Role="AestheticService">
+        <PropertyRef Name="IDPet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__IDCateg__6754599E">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="IDCategory" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="IDCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Invoice__IDCusto__628FA481">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="IDCustomer" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pet__IDCustomer__403A8C7D">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="IDCustomer" />
+      </Principal>
+      <Dependent Role="Pet">
+        <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Hospitali__IDDoc__4AB81AF0">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="Hospitalization" Type="Self.Hospitalization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="Hospitalization">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalEx__IDDoc__5165187F">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="MedicalExamination" Type="Self.MedicalExamination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="MedicalExamination">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalSe__IDDoc__5629CD9C">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="MedicalService" Type="Self.MedicalService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="MedicalService">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SurgerySe__IDDoc__5AEE82B9">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="SurgeryService" Type="Self.SurgeryService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="SurgeryService">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalEx__Medic__4F7CD00D">
+    <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+    <End Role="MedicalExamination" Type="Self.MedicalExamination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estatus">
+        <PropertyRef Name="IDEstatus" />
+      </Principal>
+      <Dependent Role="MedicalExamination">
+        <PropertyRef Name="MedicalExaminationEstatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalSe__Medic__5441852A">
+    <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+    <End Role="MedicalService" Type="Self.MedicalService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estatus">
+        <PropertyRef Name="IDEstatus" />
+      </Principal>
+      <Dependent Role="MedicalService">
+        <PropertyRef Name="MedicalServicEstatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SurgerySe__Medic__59063A47">
+    <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+    <End Role="SurgeryService" Type="Self.SurgeryService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estatus">
+        <PropertyRef Name="IDEstatus" />
+      </Principal>
+      <Dependent Role="SurgeryService">
+        <PropertyRef Name="MedicalServicEstatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Hospitali__IDPet__49C3F6B7">
+    <End Role="PetRecord" Type="Self.PetRecord" Multiplicity="0..1" />
+    <End Role="Hospitalization" Type="Self.Hospitalization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PetRecord">
+        <PropertyRef Name="IDPetRecord" />
+      </Principal>
+      <Dependent Role="Hospitalization">
+        <PropertyRef Name="IDPetRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalEx__IDPet__5070F446">
+    <End Role="PetRecord" Type="Self.PetRecord" Multiplicity="0..1" />
+    <End Role="MedicalExamination" Type="Self.MedicalExamination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PetRecord">
+        <PropertyRef Name="IDPetRecord" />
+      </Principal>
+      <Dependent Role="MedicalExamination">
+        <PropertyRef Name="IDPetRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MedicalSe__IDPet__5535A963">
+    <End Role="PetRecord" Type="Self.PetRecord" Multiplicity="0..1" />
+    <End Role="MedicalService" Type="Self.MedicalService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PetRecord">
+        <PropertyRef Name="IDPetRecord" />
+      </Principal>
+      <Dependent Role="MedicalService">
+        <PropertyRef Name="IDPetRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pet__IDSpecies__3F466844">
+    <End Role="Species" Type="Self.Species" Multiplicity="0..1" />
+    <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Species">
+        <PropertyRef Name="IDSpecies" />
+      </Principal>
+      <Dependent Role="Pet">
+        <PropertyRef Name="IDSpecies" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PetRecord__IDPet__46E78A0C">
+    <End Role="Pet" Type="Self.Pet" Multiplicity="0..1" />
+    <End Role="PetRecord" Type="Self.PetRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="IDPet" />
+      </Principal>
+      <Dependent Role="PetRecord">
+        <PropertyRef Name="IDPet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PetVaccin__IDPet__4316F928">
+    <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+    <End Role="PetVaccine" Type="Self.PetVaccine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pet">
+        <PropertyRef Name="IDPet" />
+      </Principal>
+      <Dependent Role="PetVaccine">
+        <PropertyRef Name="IDPet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SurgerySe__IDPet__59FA5E80">
+    <End Role="PetRecord" Type="Self.PetRecord" Multiplicity="0..1" />
+    <End Role="SurgeryService" Type="Self.SurgeryService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PetRecord">
+        <PropertyRef Name="IDPetRecord" />
+      </Principal>
+      <Dependent Role="SurgeryService">
+        <PropertyRef Name="IDPetRecord" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PetVaccin__IDVac__440B1D61">
+    <End Role="Vaccine" Type="Self.Vaccine" Multiplicity="1" />
+    <End Role="PetVaccine" Type="Self.PetVaccine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vaccine">
+        <PropertyRef Name="IDVaccine" />
+      </Principal>
+      <Dependent Role="PetVaccine">
+        <PropertyRef Name="IDVaccine" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VeterinaryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AestheticService" EntityType="Self.AestheticService" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+    <EntitySet Name="Estatus" EntityType="Self.Estatus" />
+    <EntitySet Name="Hospitalization" EntityType="Self.Hospitalization" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" />
+    <EntitySet Name="MedicalExamination" EntityType="Self.MedicalExamination" />
+    <EntitySet Name="MedicalService" EntityType="Self.MedicalService" />
+    <EntitySet Name="Pet" EntityType="Self.Pet" />
+    <EntitySet Name="PetRecord" EntityType="Self.PetRecord" />
+    <EntitySet Name="PetVaccine" EntityType="Self.PetVaccine" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Species" EntityType="Self.Species" />
+    <EntitySet Name="SurgeryService" EntityType="Self.SurgeryService" />
+    <EntitySet Name="Vaccine" EntityType="Self.Vaccine" />
+    <AssociationSet Name="FK__Aesthetic__Aesth__5DCAEF64" Association="Self.FK__Aesthetic__Aesth__5DCAEF64">
+      <End Role="Estatus" EntitySet="Estatus" />
+      <End Role="AestheticService" EntitySet="AestheticService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Aesthetic__IDDoc__5FB337D6" Association="Self.FK__Aesthetic__IDDoc__5FB337D6">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="AestheticService" EntitySet="AestheticService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Aesthetic__IDPet__5EBF139D" Association="Self.FK__Aesthetic__IDPet__5EBF139D">
+      <End Role="Pet" EntitySet="Pet" />
+      <End Role="AestheticService" EntitySet="AestheticService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__IDCateg__6754599E" Association="Self.FK__Product__IDCateg__6754599E">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Invoice__IDCusto__628FA481" Association="Self.FK__Invoice__IDCusto__628FA481">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pet__IDCustomer__403A8C7D" Association="Self.FK__Pet__IDCustomer__403A8C7D">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Pet" EntitySet="Pet" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Hospitali__IDDoc__4AB81AF0" Association="Self.FK__Hospitali__IDDoc__4AB81AF0">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Hospitalization" EntitySet="Hospitalization" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalEx__IDDoc__5165187F" Association="Self.FK__MedicalEx__IDDoc__5165187F">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="MedicalExamination" EntitySet="MedicalExamination" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalSe__IDDoc__5629CD9C" Association="Self.FK__MedicalSe__IDDoc__5629CD9C">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="MedicalService" EntitySet="MedicalService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SurgerySe__IDDoc__5AEE82B9" Association="Self.FK__SurgerySe__IDDoc__5AEE82B9">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="SurgeryService" EntitySet="SurgeryService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalEx__Medic__4F7CD00D" Association="Self.FK__MedicalEx__Medic__4F7CD00D">
+      <End Role="Estatus" EntitySet="Estatus" />
+      <End Role="MedicalExamination" EntitySet="MedicalExamination" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalSe__Medic__5441852A" Association="Self.FK__MedicalSe__Medic__5441852A">
+      <End Role="Estatus" EntitySet="Estatus" />
+      <End Role="MedicalService" EntitySet="MedicalService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SurgerySe__Medic__59063A47" Association="Self.FK__SurgerySe__Medic__59063A47">
+      <End Role="Estatus" EntitySet="Estatus" />
+      <End Role="SurgeryService" EntitySet="SurgeryService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Hospitali__IDPet__49C3F6B7" Association="Self.FK__Hospitali__IDPet__49C3F6B7">
+      <End Role="PetRecord" EntitySet="PetRecord" />
+      <End Role="Hospitalization" EntitySet="Hospitalization" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalEx__IDPet__5070F446" Association="Self.FK__MedicalEx__IDPet__5070F446">
+      <End Role="PetRecord" EntitySet="PetRecord" />
+      <End Role="MedicalExamination" EntitySet="MedicalExamination" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MedicalSe__IDPet__5535A963" Association="Self.FK__MedicalSe__IDPet__5535A963">
+      <End Role="PetRecord" EntitySet="PetRecord" />
+      <End Role="MedicalService" EntitySet="MedicalService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pet__IDSpecies__3F466844" Association="Self.FK__Pet__IDSpecies__3F466844">
+      <End Role="Species" EntitySet="Species" />
+      <End Role="Pet" EntitySet="Pet" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PetRecord__IDPet__46E78A0C" Association="Self.FK__PetRecord__IDPet__46E78A0C">
+      <End Role="Pet" EntitySet="Pet" />
+      <End Role="PetRecord" EntitySet="PetRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PetVaccin__IDPet__4316F928" Association="Self.FK__PetVaccin__IDPet__4316F928">
+      <End Role="Pet" EntitySet="Pet" />
+      <End Role="PetVaccine" EntitySet="PetVaccine" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SurgerySe__IDPet__59FA5E80" Association="Self.FK__SurgerySe__IDPet__59FA5E80">
+      <End Role="PetRecord" EntitySet="PetRecord" />
+      <End Role="SurgeryService" EntitySet="SurgeryService" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PetVaccin__IDVac__440B1D61" Association="Self.FK__PetVaccin__IDVac__440B1D61">
+      <End Role="Vaccine" EntitySet="Vaccine" />
+      <End Role="PetVaccine" EntitySet="PetVaccine" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

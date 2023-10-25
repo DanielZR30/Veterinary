@@ -123,7 +123,6 @@ namespace Veterinary.Controllers
         #endregion
 
         #region Update
-
         [HttpPut]
         [Route("api/products/{IDProduct}")]
         public async Task<object> UpdateProduct(Guid IDProduct, [FromBody] Product product)
@@ -166,7 +165,7 @@ namespace Veterinary.Controllers
                 try
                 {
                     Product p = await _productService.DeleteProduct(product);
-                    return Ok<Product>(product);
+                    return Ok(p);
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
