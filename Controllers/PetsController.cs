@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Veterinary.Interfaces;
 using Veterinary.Models;
 using Veterinary.Services;
@@ -10,6 +11,7 @@ using Veterinary.ViewModels;
 
 namespace Veterinary.Controllers
 {
+    [EnableCors(origins: "http://localhost:54641", headers: "*", methods: "*")]
     public class PetsController : ApiController
     {
         private static readonly VeterinaryEntities _context = new VeterinaryEntities();
@@ -52,7 +54,7 @@ namespace Veterinary.Controllers
         #region Read
         [HttpGet]
         [Route("api/pets")]
-        public async Task<object> GetPets()
+        public async Task<IHttpActionResult> GetPets()
         {
             try
             {

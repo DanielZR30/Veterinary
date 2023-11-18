@@ -17,7 +17,7 @@ using System.Web.Http.Cors;
 namespace Veterinary.Controllers
 {
 
-    [EnableCors(origins: "http://localhost:50804", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:54641", headers: "*", methods: "*")]
     public class ProductsController : ApiController
     {
         private static readonly VeterinaryEntities _context = new VeterinaryEntities();
