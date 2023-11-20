@@ -9,6 +9,7 @@
 
 namespace Veterinary.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -27,6 +28,8 @@ namespace Veterinary.Models
         public Nullable<System.Guid> IDCustomer { get; set; }
     
         public virtual Customer Customer { get; set; }
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceProduct> InvoiceProduct { get; set; }
     }

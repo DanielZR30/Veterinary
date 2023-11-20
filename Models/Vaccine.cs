@@ -9,6 +9,7 @@
 
 namespace Veterinary.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -23,7 +24,9 @@ namespace Veterinary.Models
         public System.Guid IDVaccine { get; set; }
         public string VaccineName { get; set; }
         public string VaccineDescription { get; set; }
-    
+
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PetVaccine> PetVaccine { get; set; }
     }

@@ -23,7 +23,6 @@ namespace Veterinary.Interfaces
         Task<Pet> UpdatePet(Pet pet);
 
         Task<Pet> DeletePet(Guid petId);
-
-
+        Task<IEnumerable<Pet>> GetPetByCustomer(Guid customerId);
     }
 }

@@ -96,6 +96,21 @@ namespace Veterinary.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpGet]
+        [Route("api/pets/customer/{speciesId}")]
+        public async Task<object> GetPetByCustomer(Guid customerId)
+        {
+            try
+            {
+                IEnumerable<Pet> pets = await _petService.GetPetByCustomer(customerId);
+                return Ok(pets);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         #endregion
 
         #region Update

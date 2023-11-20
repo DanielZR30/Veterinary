@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Veterinary.Interfaces;
 using Veterinary.Models;
 
 namespace Veterinary.Controllers
@@ -16,7 +17,7 @@ namespace Veterinary.Controllers
     public class InvoicesController : ApiController
     {
         private VeterinaryEntities db = new VeterinaryEntities();
-        private IInvoiceService _invoiceService = new InvoiceService(db);
+        //private IInvoiceService _invoiceService = new InvoiceService(db);
 
         // GET: api/Invoices
         public IQueryable<Invoice> GetInvoice()

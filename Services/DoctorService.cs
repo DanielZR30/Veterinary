@@ -50,19 +50,32 @@ namespace Veterinary.Services
             }
         }
 
-        public Task<Doctor> GetDoctorById(Guid doctorId)
+        async public Task<Doctor> GetDoctorById(Guid doctorId)
         {
-            throw new NotImplementedException();
+            return await _context.Doctor.FirstOrDefaultAsync(d => d.IDDoctor.Equals(doctorId));
         }
 
-        public Task<IEnumerable<Doctor>> GetDoctors()
+        public async Task<IEnumerable<Doctor>> GetDoctors()
         {
-            throw new NotImplementedException();
+            return await _context.Doctor.ToListAsync();
         }
 
-        public Task<Doctor> UpdateDoctor(Doctor doctor)
+        async public Task<Doctor> UpdateDoctor(Doctor doctor)
         {
-            throw new NotImplementedException();
+            Doctor d = _context.Doctor.FirstOrDefault(doc => doc.IDDoctor == doctor.IDDoctor);
+            try
+            {
+                d.DoctorCC = doctor.DoctorCC;
+                d.DoctorPhone = doctor.DoctorPhone;
+                d.DoctorLastname = doctor.DoctorLastname;
+                d.DoctorName = doctor.DoctorName;
+                await _context.SaveChangesAsync();
+                return d;
+            }
+            catch (Exception ex)
+            {
+                return d;
+            }
         }
     }
 }
