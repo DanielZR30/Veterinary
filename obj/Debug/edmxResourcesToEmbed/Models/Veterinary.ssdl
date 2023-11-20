@@ -66,6 +66,15 @@
     <Property Name="InvoiceDescription" Type="nvarchar" MaxLength="255" />
     <Property Name="IDCustomer" Type="uniqueidentifier" />
   </EntityType>
+  <EntityType Name="InvoiceProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="ProductID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="InvoiceID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Quantity" Type="tinyint" Nullable="false" />
+  </EntityType>
   <EntityType Name="MedicalExamination">
     <Key>
       <PropertyRef Name="IDMedicalExamination" />
@@ -221,6 +230,30 @@
       </Principal>
       <Dependent Role="Invoice">
         <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoicePr__Invoi__05D8E0BE">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="InvoiceProduct" Type="Self.InvoiceProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="IDInvoice" />
+      </Principal>
+      <Dependent Role="InvoiceProduct">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoicePr__Produ__04E4BC85">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="InvoiceProduct" Type="Self.InvoiceProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="IDProduct" />
+      </Principal>
+      <Dependent Role="InvoiceProduct">
+        <PropertyRef Name="ProductID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -404,6 +437,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="VeterinaryModelStoreContainer">
     <EntitySet Name="AestheticService" EntityType="Self.AestheticService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -412,6 +476,7 @@
     <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Hospitalization" EntityType="Self.Hospitalization" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvoiceProduct" EntityType="Self.InvoiceProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MedicalExamination" EntityType="Self.MedicalExamination" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MedicalService" EntityType="Self.MedicalService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
@@ -444,6 +509,14 @@
     <AssociationSet Name="FK__Invoice__IDCusto__628FA481" Association="Self.FK__Invoice__IDCusto__628FA481">
       <End Role="Customer" EntitySet="Customer" />
       <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoicePr__Invoi__05D8E0BE" Association="Self.FK__InvoicePr__Invoi__05D8E0BE">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceProduct" EntitySet="InvoiceProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoicePr__Produ__04E4BC85" Association="Self.FK__InvoicePr__Produ__04E4BC85">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="InvoiceProduct" EntitySet="InvoiceProduct" />
     </AssociationSet>
     <AssociationSet Name="FK__MedicalEx__IDDoc__5165187F" Association="Self.FK__MedicalEx__IDDoc__5165187F">
       <End Role="Doctor" EntitySet="Doctor" />

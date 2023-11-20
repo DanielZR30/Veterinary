@@ -12,18 +12,13 @@ namespace Veterinary.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Species
+    public partial class InvoiceProduct
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Species()
-        {
-            this.Pet = new HashSet<Pet>();
-        }
+        public System.Guid ProductID { get; set; }
+        public System.Guid InvoiceID { get; set; }
+        public byte Quantity { get; set; }
     
-        public System.Guid IDSpecies { get; set; }
-        public string SpeciesName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pet> Pet { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Invoice Invoice { get; set; }
     }
 }

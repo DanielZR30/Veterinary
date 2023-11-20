@@ -30,8 +30,8 @@
     <Property Name="CustomerName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="CustomerLastname" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="CustomerPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Invoice" Relationship="Self.FK__Invoice__IDCusto__628FA481" FromRole="Customer" ToRole="Invoice" />
     <NavigationProperty Name="Pet" Relationship="Self.FK__Pet__IDCustomer__403A8C7D" FromRole="Customer" ToRole="Pet" />
+    <NavigationProperty Name="Invoice" Relationship="VeterinaryModel.FK__Invoice__IDCusto__628FA481" FromRole="Customer" ToRole="Invoice" />
   </EntityType>
   <EntityType Name="Doctor">
     <Key>
@@ -72,17 +72,6 @@
     <Property Name="IDDoctor" Type="Guid" />
     <NavigationProperty Name="Doctor" Relationship="Self.FK__Hospitali__IDDoc__4AB81AF0" FromRole="Hospitalization" ToRole="Doctor" />
     <NavigationProperty Name="PetRecord" Relationship="Self.FK__Hospitali__IDPet__49C3F6B7" FromRole="Hospitalization" ToRole="PetRecord" />
-  </EntityType>
-  <EntityType Name="Invoice">
-    <Key>
-      <PropertyRef Name="IDInvoice" />
-    </Key>
-    <Property Name="IDInvoice" Type="Guid" Nullable="false" />
-    <Property Name="InvoiceTotal" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
-    <Property Name="InvoiceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="IDCustomer" Type="Guid" />
-    <NavigationProperty Name="Customer" Relationship="Self.FK__Invoice__IDCusto__628FA481" FromRole="Invoice" ToRole="Customer" />
   </EntityType>
   <EntityType Name="MedicalExamination">
     <Key>
@@ -162,6 +151,7 @@
     <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="IDCategoria" Type="Guid" />
     <NavigationProperty Name="Category" Relationship="Self.FK__Product__IDCateg__6754599E" FromRole="Product" ToRole="Category" />
+    <NavigationProperty Name="InvoiceProducts" Relationship="VeterinaryModel.FK__InvoicePr__Produ__04E4BC85" FromRole="Product" ToRole="InvoiceProduct" />
   </EntityType>
   <EntityType Name="Species">
     <Key>
@@ -239,18 +229,6 @@
       </Principal>
       <Dependent Role="Product">
         <PropertyRef Name="IDCategoria" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Invoice__IDCusto__628FA481">
-    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customer">
-        <PropertyRef Name="IDCustomer" />
-      </Principal>
-      <Dependent Role="Invoice">
-        <PropertyRef Name="IDCustomer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -453,7 +431,6 @@
     <EntitySet Name="Doctor" EntityType="Self.Doctor" />
     <EntitySet Name="Estatus" EntityType="Self.Estatus" />
     <EntitySet Name="Hospitalization" EntityType="Self.Hospitalization" />
-    <EntitySet Name="Invoice" EntityType="Self.Invoice" />
     <EntitySet Name="MedicalExamination" EntityType="Self.MedicalExamination" />
     <EntitySet Name="MedicalService" EntityType="Self.MedicalService" />
     <EntitySet Name="Pet" EntityType="Self.Pet" />
@@ -478,10 +455,6 @@
     <AssociationSet Name="FK__Product__IDCateg__6754599E" Association="Self.FK__Product__IDCateg__6754599E">
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Invoice__IDCusto__628FA481" Association="Self.FK__Invoice__IDCusto__628FA481">
-      <End Role="Customer" EntitySet="Customer" />
-      <End Role="Invoice" EntitySet="Invoice" />
     </AssociationSet>
     <AssociationSet Name="FK__Pet__IDCustomer__403A8C7D" Association="Self.FK__Pet__IDCustomer__403A8C7D">
       <End Role="Customer" EntitySet="Customer" />
@@ -547,5 +520,119 @@
       <End Role="Vaccine" EntitySet="Vaccine" />
       <End Role="PetVaccine" EntitySet="PetVaccine" />
     </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(VeterinaryModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(VeterinaryModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="InvoiceProducts" EntityType="VeterinaryModel.InvoiceProduct" />
+    <AssociationSet Name="FK__InvoicePr__Produ__04E4BC85" Association="VeterinaryModel.FK__InvoicePr__Produ__04E4BC85">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="InvoiceProduct" EntitySet="InvoiceProducts" />
+    </AssociationSet>
+    <EntitySet Name="Invoice" EntityType="VeterinaryModel.Invoice" />
+    <AssociationSet Name="FK__Invoice__IDCusto__628FA481" Association="VeterinaryModel.FK__Invoice__IDCusto__628FA481">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoicePr__Invoi__05D8E0BE" Association="VeterinaryModel.FK__InvoicePr__Invoi__05D8E0BE">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceProduct" EntitySet="InvoiceProducts" />
+    </AssociationSet>
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="InvoiceProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="ProductID" Type="Guid" Nullable="false" />
+    <Property Name="InvoiceID" Type="Guid" Nullable="false" />
+    <Property Name="Quantity" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="VeterinaryModel.FK__InvoicePr__Produ__04E4BC85" FromRole="InvoiceProduct" ToRole="Product" />
+    <NavigationProperty Name="Invoice" Relationship="VeterinaryModel.FK__InvoicePr__Invoi__05D8E0BE" FromRole="InvoiceProduct" ToRole="Invoice" />
+  </EntityType>
+  <Association Name="FK__InvoicePr__Produ__04E4BC85">
+    <End Type="VeterinaryModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="VeterinaryModel.InvoiceProduct" Role="InvoiceProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="IDProduct" />
+      </Principal>
+      <Dependent Role="InvoiceProduct">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="IDInvoice" />
+    </Key>
+    <Property Name="IDInvoice" Type="Guid" Nullable="false" />
+    <Property Name="InvoiceTotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
+    <Property Name="InvoiceDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IDCustomer" Type="Guid" />
+    <NavigationProperty Name="Customer" Relationship="VeterinaryModel.FK__Invoice__IDCusto__628FA481" FromRole="Invoice" ToRole="Customer" />
+    <NavigationProperty Name="InvoiceProduct" Relationship="VeterinaryModel.FK__InvoicePr__Invoi__05D8E0BE" FromRole="Invoice" ToRole="InvoiceProduct" />
+  </EntityType>
+  <Association Name="FK__Invoice__IDCusto__628FA481">
+    <End Type="VeterinaryModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="VeterinaryModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="IDCustomer" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="IDCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoicePr__Invoi__05D8E0BE">
+    <End Type="VeterinaryModel.Invoice" Role="Invoice" Multiplicity="1" />
+    <End Type="VeterinaryModel.InvoiceProduct" Role="InvoiceProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="IDInvoice" />
+      </Principal>
+      <Dependent Role="InvoiceProduct">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

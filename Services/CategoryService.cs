@@ -23,7 +23,10 @@ namespace Veterinary.Services
             Category c = await _context.Category.FirstOrDefaultAsync(cat => cat.CategoryDescription.Equals(category.CategoryDescription));
             if (c == null)
             {
-                return _context.Category.Add(category);
+                _context.Category.Add(category);
+                _context.SaveChanges();
+                return category;
+
             }
 
             return c;

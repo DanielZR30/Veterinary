@@ -9,7 +9,6 @@
 
 namespace Veterinary.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -31,17 +30,12 @@ namespace Veterinary.Models
         public Nullable<byte> PetAge { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
         public virtual ICollection<AestheticService> AestheticService { get; set; }
-        [JsonIgnore]
         public virtual Customer Customer { get; set; }
-        [JsonIgnore]
         public virtual Species Species { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
         public virtual ICollection<PetRecord> PetRecord { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnore]
         public virtual ICollection<PetVaccine> PetVaccine { get; set; }
     }
 }

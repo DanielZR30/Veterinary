@@ -14,6 +14,12 @@ namespace Veterinary.Models
     
     public partial class Invoice
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Invoice()
+        {
+            this.InvoiceProduct = new HashSet<InvoiceProduct>();
+        }
+    
         public System.Guid IDInvoice { get; set; }
         public Nullable<decimal> InvoiceTotal { get; set; }
         public Nullable<System.DateTime> InvoiceDate { get; set; }
@@ -21,5 +27,7 @@ namespace Veterinary.Models
         public Nullable<System.Guid> IDCustomer { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InvoiceProduct> InvoiceProduct { get; set; }
     }
 }

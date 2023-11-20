@@ -228,14 +228,16 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\PetsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SpeciesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IDoctorService.cs" />
     <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Interfaces\IInvoiceService.cs" />
     <Compile Include="Interfaces\IPetService.cs" />
     <Compile Include="Interfaces\ISpeciesService.cs" />
     <Compile Include="Models\AestheticService.cs">
@@ -259,6 +261,9 @@
     <Compile Include="Models\Invoice.cs">
       <DependentUpon>Veterinary.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InvoiceProduct.cs">
+      <DependentUpon>Veterinary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MedicalExamination.cs">
       <DependentUpon>Veterinary.tt</DependentUpon>
     </Compile>
@@ -278,6 +283,12 @@
       <DependentUpon>Veterinary.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Species.cs">
+      <DependentUpon>Veterinary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Veterinary.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Veterinary.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SurgeryService.cs">
@@ -306,10 +317,13 @@
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\DoctorService.cs" />
     <Compile Include="Services\PetService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SpeciesService.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\PetCustomerViewModel.cs" />
     <Compile Include="ViewModels\PetDataViewModel.cs" />
     <Compile Include="ViewModels\PetViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />

@@ -67,9 +67,17 @@ namespace Veterinary.Services
             return Pets;
         }
 
-        public async Task<IEnumerable<Pet>> GetPets()
+        public async Task<IEnumerable<PetCustomerViewModel>> GetPetsData()
         {
-            return await _context.Pet.ToListAsync();
+            return await _context.Pet
+                .Include(p => p.Species)
+                .Include(p => p.Customer).Select(p => new PetCustomerViewModel
+            {
+                    Id = p.IDPet,
+                    Name = p.PetName,
+                    OwnerName = p.Customer.CustomerName,
+                    Species = p.Species.SpeciesName
+            }).ToListAsync();
         }
 
         public async Task<Pet> UpdatePet(Pet pet)
@@ -87,6 +95,11 @@ namespace Veterinary.Services
             {
                 return p;
             }
+        }
+
+        Task<IEnumerable<Pet>> IPetService.GetPets()
+        {
+            throw new NotImplementedException();
         }
     }
 }
