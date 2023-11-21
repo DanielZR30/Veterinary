@@ -14,7 +14,6 @@ namespace Veterinary.Interfaces
         Task<IEnumerable<AestheticService>> GetAestheticServices();
         Task<AestheticService> UpdateAestheticService(AestheticService aestheticService);
         Task<AestheticService> DeleteAestheticService(Guid aestheticServiceId);
-
         Task<IEnumerable<AestheticService>> GetAestheticServicesByPet(Guid petId);
     }
 }
